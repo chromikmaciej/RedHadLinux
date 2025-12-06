@@ -116,7 +116,7 @@ nft add rule ip filter input accept # Add rule
 Create the file set_default.nft:
 
 ```
-touch set_default.nft:
+touch set_default.nft
 ```
 
 Next, fill the file with the following nftables ruleset:
