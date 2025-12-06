@@ -1,6 +1,6 @@
 # Chapter 41. Getting started with nftables
 
-1. The **nftables** is the successor to the **iptables**, **ip6tables**, **arptables**, **ebtables**, and **ipset** utilities.
+1. **nftables**  is the successor to the **iptables**, **ip6tables**, **arptables**, **ebtables**, and **ipset** utilities.
 It delivers many gains in convenience, functionality, and performance compared with earlier packet-filtering tools, especially:
     - Built-in lookup tables instead of linear processing
     - A single framework for both the **IPv4** and **IPv6** protocols
@@ -9,3 +9,7 @@ It delivers many gains in convenience, functionality, and performance compared w
     - More consistent and compact syntax, no protocol-specific extensions
     - A Netlink API for third-party applications
 
+The **nftables** framework uses tables to store chains. The chains contain individual rules, for performing actions.
+The **nft** utility replaces all tools from the previous packet-filtering frameworks. You can use the **libnftables** library for low-level interaction with **nftables** Netlink API through the **libnftnl** library. 
+
+To display the effect of rule set changes, use the **nft list ruleset**
