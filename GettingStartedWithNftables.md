@@ -35,3 +35,42 @@ nft add rule ip6 filter input tcp dport 22 accept
 nft add rule arp filter input ip saddr 1.2.3.4 accept
 nft add rule bridge filter input ether saddr 00:11:22:33:44:55 accept
 ```
+
+Hook Points in Network Stack
+
+```
+NETDEV (ingress)
+                          ↓
+    ┌─────────────────────────────────────────┐
+    │              PREROUTING                 │
+    │        (routing decisions)              │
+    └─────────────────┬───────────────────────┘  
+                      ↓
+              ┌───────────────┐
+              │   ROUTING     │
+              │   DECISION    │
+              └───────┬───────┘
+                      ↓
+        ┌─────────────┴─────────────┐
+        │                           │
+        ↓                           ↓
+   ┌─────────┐                 ┌─────────┐
+   │  INPUT  │                 │ FORWARD │
+   │(local)  │                 │(route)  │
+   └────┬────┘                 └────┬────┘
+        │                           │
+        ↓                           ↓
+   ┌─────────┐                 ┌─────────┐
+   │ OUTPUT  │                 │POSTROUTING│
+   │(local)  │                 │   (NAT)   │
+   └────┬────┘                 └────┬────┘
+        │                           │
+        └─────────────┬───────────────┘
+                      ↓
+                ┌─────────────┐
+                │POSTROUTING  │
+                │   (final)   │
+                └─────────────┘
+                      ↓
+                 NETDEV (egress)
+```
