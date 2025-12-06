@@ -153,5 +153,5 @@ table ip filter {
 Finally, run the command:
 
 ```
-/usr/bin/nft -f ./set_default.nft
+/usr/sbin/nft -f ./set_default.nft
 ```
