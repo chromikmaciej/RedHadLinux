@@ -13,3 +13,5 @@ The **nftables** framework uses tables to store chains. The chains contain indiv
 The **nft** utility replaces all tools from the previous packet-filtering frameworks. You can use the **libnftables** library for low-level interaction with **nftables** Netlink API through the **libnftnl** library. 
 
 To display the effect of rule set changes, use the **nft list ruleset** command. To clear the kernel rule set, use the **nft flush ruleset** command. Note that this may also affect the rule set installed by the **iptables-nft** command, as it utilizes the same kernel infrastructure. 
+
+* 41.1. Creating and managing nftables tables, chains, and rules
