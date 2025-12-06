@@ -95,3 +95,63 @@ sudo systemctl start nftables
 # Check version
 nft --version
 ```
+
+## Command Structure Basics
+
+```
+# Basic command structure
+nft [options] command [family] [table] [chain] [rule]
+```
+
+```
+# Examples:
+nft list ruleset                    # List everything
+nft add table ip filter             # Add table
+nft add chain ip filter input       # Add chain
+nft add rule ip filter input accept # Add rule
+```
+
+## Our First nftables Configuration
+
+Create the file set_default.nft:
+
+```
+touch set_default.nft:
+```
+
+Next, fill the file with the following nftables ruleset:
+
+```
+# Clear everything
+flush ruleset
+# Create basic IPv4 firewall
+table ip filter {
+    # Define chains with their properties
+    chain input {
+        type filter hook input priority 0; policy drop;
+        
+        # Allow loopback
+        iif lo accept
+        
+        # Allow established connections
+        ct state established,related accept
+        
+        # Allow SSH
+        tcp dport 22 accept
+    }
+    
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+    }
+    
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}
+```
+
+Finally, run the command:
+
+```
+/usr/bin/nft -f ./set_default.nft
+```
