@@ -36,7 +36,7 @@ nft add rule arp filter input ip saddr 1.2.3.4 accept
 nft add rule bridge filter input ether saddr 00:11:22:33:44:55 accept
 ```
 
-Hook Points in Network Stack
+Hook Points in the Network Stack
 
 ```
 NETDEV (ingress)
@@ -60,10 +60,10 @@ NETDEV (ingress)
    └────┬────┘                 └────┬────┘
         │                           │
         ↓                           ↓
-   ┌─────────┐                 ┌─────────┐
+   ┌─────────┐                 ┌────────--─┐
    │ OUTPUT  │                 │POSTROUTING│
    │(local)  │                 │   (NAT)   │
-   └────┬────┘                 └────┬────┘
+   └────┬────┘                 └────┬────--┘
         │                           │
         └─────────────┬───────────────┘
                       ↓
@@ -73,4 +73,25 @@ NETDEV (ingress)
                 └─────────────┘
                       ↓
                  NETDEV (egress)
+```
+
+# Basic nftables Operations
+
+## Installation and Setup
+
+```
+# Install nftables (most modern distros include it)
+# Debian/Ubuntu
+sudo apt update && sudo apt install nftables
+```
+
+
+```
+# CentOS/RHEL/Fedora
+sudo dnf install nftables
+# Enable and start
+sudo systemctl enable nftables
+sudo systemctl start nftables
+# Check version
+nft --version
 ```
