@@ -155,3 +155,25 @@ Finally, run the command:
 ```
 /usr/sbin/nft -f ./set_default.nft
 ```
+
+## Creating and Managing Tables
+
+```
+# Create tables for different address families
+nft add table ip filter          # IPv4 table
+nft add table ip6 filter         # IPv6 table  
+nft add table inet filter        # Dual-stack table
+nft add table arp filter         # ARP table
+nft add table bridge filter      # Bridge table
+```
+
+```
+# List tables
+nft list tables
+# List specific table
+nft list table ip filter
+# Delete table (removes all chains and rules)
+nft delete table ip filter
+# Flush table (removes rules but keeps structure)
+nft flush table ip filter
+```
