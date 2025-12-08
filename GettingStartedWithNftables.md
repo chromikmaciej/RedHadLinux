@@ -177,3 +177,34 @@ nft delete table ip filter
 # Flush table (removes rules but keeps structure)
 nft flush table ip filter
 ```
+
+## Table Configuration Examples
+
+```
+# Complete table with multiple chains
+table ip filter {
+    # Input chain for incoming packets
+    chain input {
+        type filter hook input priority 0; policy drop;
+        # Rules go here
+    }
+    
+    # Forward chain for routed packets
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+        # Rules go here
+    }
+    
+    # Output chain for outgoing packets
+    chain output {
+        type filter hook output priority 0; policy accept;
+        # Rules go here
+    }
+    
+    # Custom chain (no hook, called from other chains)
+    chain custom_ssh {
+        tcp dport 22 limit rate 3/minute accept
+        log prefix "SSH attempt: " drop
+    }
+}
+```
